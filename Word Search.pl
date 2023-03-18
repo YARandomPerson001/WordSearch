@@ -40,9 +40,19 @@ close(FH);
 # Print the count
 print "The word \"$word\" appeared "; 
 foreach my $val (split(' ', $str)) { if(not index(lc $val, lc $word)) { $wct++; }; }
-print "$wct times!\n";
+print "$wct times!\n\n";
 
 # Loop though
+my @sen = split('\n', $str);
 
-
+my $line = 0, my $wrd = 0;
+foreach my $x (@sen) {
+    foreach my $y (split(' ', $x)) {
+        if(not index(lc $y, lc $word)) {
+            print "The word \"$word\" as appeared in: $line:$wrd\n";
+        }
+        $wrd++;
+    }
+    $line++;
+}
 
