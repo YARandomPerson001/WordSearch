@@ -4,7 +4,9 @@ use strict;
 use warnings;
 
 my $file, my $word;
+my $str = "";
 
+my $wct = 0;
 my $counter = 0;
 
 # Check arguments
@@ -27,7 +29,20 @@ foreach my $arg (@ARGV)
     $counter++;
 }
 
-# Ask for file & word, if it's empty.
 if(not defined $file) { print "That file to read from: "; $file = <STDIN>; }
 if(not defined $word) { print "What word to look for: ";  $word = <STDIN>; }
+
+# Open file and read data
+open(FH, "<$file") or die "Failed to open the file. $file\n";
+while(<FH>) { $str = $str.$_; };
+close(FH);
+
+# Print the count
+print "The word \"$word\" appeared "; 
+foreach my $val (split(' ', $str)) { if(not index(lc $val, lc $word)) { $wct++; }; }
+print "$wct times!\n";
+
+# Loop though
+
+
 
